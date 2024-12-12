@@ -7,6 +7,7 @@
   <meta name="description" content="History Database (Work in Progress)">
   <meta name="author" content="John Doe">
   <link rel="icon" href="../files/logo.png">
+  <script src="script.js"></script>
   <script>
     function iframe() {
       try {
@@ -16,9 +17,9 @@
       }
     }
     if (iframe()) {
-      alert("The page is loaded inside an iframe.");
+      console.log('loading');
     } else {
-      alert("loaded");
+      console.log('loaded');
       window.location.href = 'https://praelia.github.io';
     }
   </script>
@@ -31,8 +32,17 @@
       width: 100%;
       height: 100%;
     }
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100%;
+      height: auto;
+    }
   </style>
 </head>
-<body>
+<body style="background-color: black;>
+  <img src='../files/loading.gif'>
   <canvas id="canvas"></canvas>
 </body>
