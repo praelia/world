@@ -9,9 +9,10 @@
   <link rel="icon" href="../files/logo.png">
   <script>
     if (window.self !== window.top;) {
-      console.log("The page is loaded inside an iframe.");
+      alert("The page is loaded inside an iframe.");
     } else {
-      document.location.href = 'https://praelia.github.io';
+      alert("loaded");
+      window.location.href = 'https://praelia.github.io';
     }
   </script>
   <style>
