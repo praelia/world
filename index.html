@@ -8,7 +8,14 @@
   <meta name="author" content="John Doe">
   <link rel="icon" href="../files/logo.png">
   <script>
-    if (window.self !== window.top;) {
+    function iframe() {
+      try {
+        return window.self !== window.top;
+      } catch (e) {
+        return true;
+      }
+    }
+    if (iframe()) {
       alert("The page is loaded inside an iframe.");
     } else {
       alert("loaded");
