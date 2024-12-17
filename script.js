@@ -8,6 +8,8 @@ var tileset = document.getElementById("tileset");
 var tileSize = 32;
 
 function printTile(xtile, ytile, printx, printy) {
+  var canvas = document.getElementById('myCanvas');
+  var ctx = canvas.getContext('2d');
   ctx.drawImage(tileset,xtile*tileSize,ytile*tileSize,tileSize,tileSize,printx*canvas.width/12,printy*canvas.height/9,canvas.width/12,canvas.height/9);
 }
 
