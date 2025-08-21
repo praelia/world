@@ -1,4 +1,4 @@
-var canvas = document.getElementById('myCancanvasvas');
+var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 canvas.height = window.innerHeight;
 canvas.width = window.innerHeight*4/3;
