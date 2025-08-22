@@ -52,5 +52,5 @@ ctx.fillStyle = 'black';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 tileset.onload = function() {
-  console.log('done');
+  printMap();
 };
