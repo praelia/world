@@ -5,7 +5,7 @@ canvas.width = window.innerHeight*4/3;
 var playerx = 0;
 var playery = 0;
 var tileset = document.getElementById("tileset");
-var tileSize = 32;
+var tileSize = 16;
 var aT = 0;//animation tick
 var map = "\
 GqGwgxgcGs\
@@ -42,7 +42,7 @@ function getTile(tile, j, i) {
 function printMap() {
   for (let i=0; i<mapHeight; i++) {
     for (let j=0; j<mapWidth; j++) {
-      let tile=map[i*mapWidth+j,i*mapWidth+j+1];
+      let tile=map[i*mapWidth*2+j*2]+map[i*mapWidth*2+j*2+1];
       getTile(tile, j, i, tileset);
     }
   }
@@ -52,5 +52,5 @@ ctx.fillStyle = 'black';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 tileset.onload = function() {
-  printTile(0,0,0,0);
+  console.log('done');
 };
