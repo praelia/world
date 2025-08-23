@@ -2,7 +2,7 @@ document.body.style.overflow = 'hidden';
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var tileSize = 16;
-var canvasScale = 14;
+var canvasScale = 10;
 canvas.height = Math.ceil(window.innerHeight/100)*9*canvasScale;//9 tiles
 console.log(canvas.height);
 canvas.width = canvas.height/3*4;//12 tiles 
