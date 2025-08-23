@@ -71,54 +71,58 @@ let keyWPressed = false;
 let keyAPressed = false;
 let keySPressed = false;
 let keyDPressed = false;
+
 window.addEventListener('keydown', (event) => {
-    switch(event.key.toLowerCase()) {
-        case 'w':
-            keyWPressed = true;
-            break;
-        case 'a':
-            keyAPressed = true;
-            break;
-        case 's':
-            keySPressed = true;
-            break;
-        case 'd':
-            keyDPressed = true;
-            break;
-    }
+  if (event.key === 'Escape' || event.key === 'Esc') {
+    window.parent.postMessage({ type: 'escapePressed' }, '*');
+  }
+  switch(event.key.toLowerCase()) {
+    case 'w':
+      keyWPressed = true;
+      break;
+    case 'a':
+      keyAPressed = true;
+      break;
+    case 's':
+      keySPressed = true;
+      break;
+    case 'd':
+      keyDPressed = true;
+      break;
+  }
 });
 window.addEventListener('keyup', (event) => {
-    switch(event.key.toLowerCase()) {
-        case 'w':
-            keyWPressed = false;
-            break;
-        case 'a':
-            keyAPressed = false;
-            break;
-        case 's':
-            keySPressed = false;
-            break;
-        case 'd':
-            keyDPressed = false;
-            break;
-    }
+  switch(event.key.toLowerCase()) {
+    case 'w':
+      keyWPressed = false;
+      break;
+    case 'a':
+      keyAPressed = false;
+      break;
+    case 's':
+      keySPressed = false;
+      break;
+    case 'd':
+      keyDPressed = false;
+      break;
+  }
 });
 
 function tick() {
-    if (keyWPressed) {playery=playery+3;}
-    if (keyAPressed) {playerx=playerx-3;}
-    if (keySPressed) {playery=playery-3;}
-    if (keyDPressed) {playerx=playerx+3;}
-    printMap();
+  if (keyWPressed) {playery=playery+3;}
+  if (keyAPressed) {playerx=playerx-3;}
+  if (keySPressed) {playery=playery-3;}
+  if (keyDPressed) {playerx=playerx+3;}
+  printMap();
 }
 
 window.addEventListener('resize', () => {
-    canvas.height = Math.ceil(window.innerHeight/100)*9*canvasScale;
-    canvas.width = canvas.height/3*4;
-    ctx.imageSmoothingEnabled = false;
-    ctx.webkitImageSmoothingEnabled = false;
-    ctx.msImageSmoothingEnabled = false;
-    ctx.mozImageSmoothingEnabled = false;
+  canvas.height = Math.ceil(window.innerHeight/100)*9*canvasScale;
+  canvas.width = canvas.height/3*4;
+  ctx.imageSmoothingEnabled = false;
+  ctx.webkitImageSmoothingEnabled = false;
+  ctx.msImageSmoothingEnabled = false;
+  ctx.mozImageSmoothingEnabled = false;
 });
 
 ctx.fillStyle = 'black';
