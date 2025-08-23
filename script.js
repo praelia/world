@@ -1,25 +1,39 @@
+document.body.style.overflow = 'hidden';
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-canvas.height = window.innerHeight;
-canvas.width = window.innerHeight*4/3;
+var tileSize = 16;
+var canvasScale = 14;
+canvas.height = Math.ceil(window.innerHeight/100)*9*canvasScale;//9 tiles
+console.log(canvas.height);
+canvas.width = canvas.height/3*4;//12 tiles 
+ctx.imageSmoothingEnabled = false;
+ctx.webkitImageSmoothingEnabled = false;
+ctx.msImageSmoothingEnabled = false;
+ctx.mozImageSmoothingEnabled = false;
 var playerx = 0;
 var playery = 0;
 var tileset = document.getElementById("tileset");
-var tileSize = 16;
 var aT = 0;//animation tick
 var map = "\
-GqGwgxgcGs\
-GaGsGsGsGs\
-GzGxGxgwge\
-dqdwdwdeGz\
-dzdxdxdxdc\
-EqEwEwEwEe\
-EaEsEsEsEd";
-var mapHeight = 7;
-var mapWidth = 5;
+GsGsGsGsGsGsGsGsGsGsGsGsGsGsGsGs\
+GsGsGsGsGsGsGsGsGsGsGsGsGsGsGsGs\
+GsGsGsGsGsGsGsGsGsgqgwgeGsGsGsGs\
+GsGsGsGsGsGsGsGsGsgagsGzgeGsGsGs\
+GsGsGsGsGsGsGsGsGsgagsgsgdGsGsGs\
+GsGsGsGsGsGsGsGsGsgzgxgxgcGsGsGs\
+GsGsGsGsGsGsGsGsGsGsGsGsGsGsGsGs\
+GsGsGsGsGsGsGsGsGsGsGsGsGsGsGsGs\
+GsGsGsGsGsGsGsGsGsGsGsGsGsGsGsGs\
+GsGsGsGsGsGsGsGsGsGsGsGsGsGsGsGs";
+var mapHeight = 10;
+var mapWidth = 16;
+var shrek = document.getElementById("shrek");
+
 
 function printTile(xtile, ytile, printx, printy) {
-  ctx.drawImage(tileset,xtile*tileSize,ytile*tileSize,tileSize,tileSize,printx*canvas.width/12,printy*canvas.height/9,canvas.width/12,canvas.height/9);
+  if (0<printx*canvas.width/12-playerx+canvas.width/12 && printx*canvas.width/12-playerx-canvas.width/12<canvas.width && 0<printy*canvas.height/9+playery+canvas.height/9 && printy*canvas.height/9+playery-canvas.height/9<canvas.height) {
+    ctx.drawImage(tileset,xtile*tileSize,ytile*tileSize,tileSize,tileSize,printx*canvas.width/12-playerx,printy*canvas.height/9+playery,canvas.width/12,canvas.height/9);
+  }
 }
 function getTile(tile, j, i) {
   //G is grass,dirt; S is sand,sandstone; D is dirt,sand; E is water,dirt; B is water,sand;
@@ -43,6 +57,7 @@ function getTile(tile, j, i) {
   }
 }
 function printMap() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   for (let i=0; i<mapHeight; i++) {
     for (let j=0; j<mapWidth; j++) {
       let tile=map[i*mapWidth*2+j*2]+map[i*mapWidth*2+j*2+1];
@@ -50,11 +65,66 @@ function printMap() {
     }
   }
   if (aT == 3) {aT = 0;} else {aT = aT + 1;}
+  ctx.drawImage(shrek,canvas.width/3,canvas.height/2.5,canvas.width*0.2,canvas.height*0.2);
 }
+let keyWPressed = false;
+let keyAPressed = false;
+let keySPressed = false;
+let keyDPressed = false;
+window.addEventListener('keydown', (event) => {
+    switch(event.key.toLowerCase()) {
+        case 'w':
+            keyWPressed = true;
+            break;
+        case 'a':
+            keyAPressed = true;
+            break;
+        case 's':
+            keySPressed = true;
+            break;
+        case 'd':
+            keyDPressed = true;
+            break;
+    }
+});
+window.addEventListener('keyup', (event) => {
+    switch(event.key.toLowerCase()) {
+        case 'w':
+            keyWPressed = false;
+            break;
+        case 'a':
+            keyAPressed = false;
+            break;
+        case 's':
+            keySPressed = false;
+            break;
+        case 'd':
+            keyDPressed = false;
+            break;
+    }
+});
+
+function tick() {
+    if (keyWPressed) {playery=playery+3;}
+    if (keyAPressed) {playerx=playerx-3;}
+    if (keySPressed) {playery=playery-3;}
+    if (keyDPressed) {playerx=playerx+3;}
+    printMap();
+}
+
+window.addEventListener('resize', () => {
+    canvas.height = Math.ceil(window.innerHeight/100)*9*canvasScale;
+    canvas.width = canvas.height/3*4;
+    ctx.imageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
+    ctx.msImageSmoothingEnabled = false;
+    ctx.mozImageSmoothingEnabled = false;
+});
 
 ctx.fillStyle = 'black';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 tileset.onload = function() {
-  setInterval(printMap, 200);
+  console.log('loaded');
+  setInterval(tick, 40);
 };
