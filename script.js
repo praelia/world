@@ -74,7 +74,7 @@ let keyDPressed = false;
 
 window.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' || event.key === 'Esc') {
-    window.parent.postMessage({ type: 'escapePressed' }, '*');
+    window.parent.postMessage("HIDEITQUICK", '*');
   }
   switch(event.key.toLowerCase()) {
     case 'w':
